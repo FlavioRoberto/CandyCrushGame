@@ -1,0 +1,36 @@
+# Unity generated files
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+
+# Unity build data
+[Bb]uild/
+[Oo]utput/
+
+# Unity asset cache
+[Oo]bj/UnityGenerated/
+[Oo]bj/AssetImportState
+
+# Unity packages
+*.unitypackage
+
+# Visual Studio files
+*.sln
+*.csproj
+*.suo
+*.userprefs
+*.user
+
+# MonoDevelop files
+*.pidb
+*.userprefs
+*.unityproj
+*.booproj
+
+# Rider files
+.idea/
+*.csproj.DotSettings.user
+
+# Other files and folders
+.DS_Store
+Thumbs.db

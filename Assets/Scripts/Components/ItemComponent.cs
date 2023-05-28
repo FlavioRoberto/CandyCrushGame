@@ -14,11 +14,16 @@ public class ItemComponent : MonoBehaviour
     public delegate void OnMouseOverItem(ItemComponent item);
     public static event OnMouseOverItem OnMouseOverItemEventHandler;
 
+    public void OnItemPositionChanged(Indice indice)
+    {
+        X = indice.X;
+        Y = indice.Y;
+        gameObject.name = $"Sprite [{X}][{Y}]";
+    }
+
     public void OnItemPositionChanged(int x, int y)
     {
-        X = x;
-        Y = y;
-        gameObject.name = $"Sprite [{X}][{Y}]";
+        this.OnItemPositionChanged(new Indice(x, y));
     }
 
     public void OnMouseDown()
@@ -28,12 +33,6 @@ public class ItemComponent : MonoBehaviour
             return;
 
         OnMouseOverItemEventHandler(this);
-    }
-
-    public void ChangeIndice(Indice indice)
-    {
-        X = indice.X;
-        Y = indice.Y;
     }
 
     public Indice GetIndice()

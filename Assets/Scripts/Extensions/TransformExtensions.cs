@@ -1,11 +1,33 @@
-using System;
+using System.Collections;
 using UnityEngine;
 
-namespace CandyCrush.Helpers
+namespace CandyCrush.Extensions
 {
-    public static class ParentHelper
+    public static class TransformExtensions
     {
-        public static float GetParentHeight(Transform parent)
+
+        public static IEnumerator Move(this Transform transform, Vector3 target, float duration)
+        {
+            var distance = target - transform.position;
+
+            var distanceLength = distance.magnitude;
+
+            distance.Normalize();
+
+            float timer = 0;
+
+            while(timer < duration)
+            {
+                float movAmount = (Time.deltaTime * distanceLength)/duration;
+                transform.position += distance * movAmount;
+                timer += Time.deltaTime;
+                yield return null;
+            }
+
+            transform.position = target;
+        }
+
+        public static float GetParentHeight(this Transform parent)
         {
             float totalHeight = 0f;
 
@@ -31,4 +53,3 @@ namespace CandyCrush.Helpers
         }
     }
 }
-

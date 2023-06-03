@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace CandyCrush.Services
 {
-    public class CameraService
+    public class CameraFocusService
     {
         public void CenterCamera(GameObject camera, GameObject targetObject, int zPosition = -10)
         {

@@ -27,6 +27,27 @@ namespace CandyCrush.Extensions
             transform.position = target;
         }
 
+        public static IEnumerator Scale(this Transform transform, Vector3 target, float duration)
+        {
+            var distance = target - transform.localScale;
+
+            var distanceLength = distance.magnitude;
+
+            distance.Normalize();
+
+            float timer = 0;
+
+            while (timer < duration)
+            {
+                float movAmount = (Time.deltaTime * distanceLength) / duration;
+                transform.localScale += distance * movAmount;
+                timer += Time.deltaTime;
+                yield return null;
+            }
+
+            transform.localScale = target;
+        }
+
         public static float GetParentHeight(this Transform parent)
         {
             float totalHeight = 0f;

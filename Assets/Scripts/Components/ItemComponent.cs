@@ -35,6 +35,11 @@ public class ItemComponent : MonoBehaviour
         OnMouseOverItemEventHandler(this);
     }
 
+    public void Destroy()
+    {
+        Destroy(this, 1f);
+    }
+
     public Indice GetIndice()
     {
         return new Indice(X, Y);

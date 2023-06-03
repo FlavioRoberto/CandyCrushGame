@@ -6,38 +6,21 @@ using UnityEngine;
 namespace CandyCrush.Services
 {
 
-    public class GridService
+    public class CandyService
     {
-        private GameObject[] _candiesTypes;
+        public GameObject[] CandiesTypes { get; private set; }
 
-        public GridService()
+        public CandyService()
         {
-            _candiesTypes = LoadCandiesTypes();
-        }
-
-        public ItemComponent[,] Generate(int xSize, int ySize, GameObject candysGameObject)
-        {
-            var _itens = new ItemComponent[xSize, ySize];
-
-            for (int x = 0; x < xSize; x++)
-            {
-                for (int y = 0; y < ySize; y++)
-                {
-                    _itens[x, y] = CreateCandy(candysGameObject, x, y);
-                }
-            }
-
-            CreateCandysColider(candysGameObject);
-
-            return _itens;
+            CandiesTypes = LoadCandiesTypes();
         }
 
 
-        private ItemComponent CreateCandy(GameObject candysGameObject, int x, int y)
+        public ItemComponent Create(GameObject candysGameObject, int x, int y)
         {
-            var randomType = Random.Range(0, _candiesTypes.Length);
+            var randomType = Random.Range(0, CandiesTypes.Length);
 
-            var candComponent = MonoBehaviour.Instantiate(_candiesTypes[randomType], candysGameObject.transform);
+            var candComponent = MonoBehaviour.Instantiate(CandiesTypes[randomType], candysGameObject.transform);
 
             candComponent.transform.localPosition = new Vector3(x, y, 0);
 
@@ -50,14 +33,7 @@ namespace CandyCrush.Services
             return gridItem;
         }
 
-
-        private GameObject[] LoadCandiesTypes()
-        {
-            return Resources.LoadAll<GameObject>("Prefabs");
-        }
-
-
-        private void CreateCandysColider(GameObject parent)
+        public void CreateCandysColider(GameObject parent)
         {
             // Cria o novo objeto a partir do prefab
             GameObject colider = new GameObject("Colider");
@@ -70,7 +46,7 @@ namespace CandyCrush.Services
 
             colider.AddComponent<BoxCollider2D>();
 
-            var prefabType = _candiesTypes[0];
+            var prefabType = GetCandyPrefab();
 
             Vector3 targetPosition = prefabType.transform.position;
 
@@ -79,6 +55,16 @@ namespace CandyCrush.Services
             // Move o componente atual para baixo com base no tamanho do componente de destino
             colider.transform.position = new Vector3(targetPosition.x, parentHeight - 1 - targetPosition.y, targetPosition.z);
 
+        }
+
+        private GameObject GetCandyPrefab()
+        {
+            return CandiesTypes[0];
+        }
+
+        private GameObject[] LoadCandiesTypes()
+        {
+            return Resources.LoadAll<GameObject>("Prefabs");
         }
 
     }

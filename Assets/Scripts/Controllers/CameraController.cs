@@ -7,11 +7,11 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public GameObject focusTarget;
-    private CameraService _service;
+    private CameraFocusService _service;
 
     void Start()
     {
-        _service = new CameraService();
+        _service = new CameraFocusService();
     }
 
     void Update()
